@@ -35,7 +35,6 @@ En el trabajo en equipo participé en:
 1. Descargar o clonar este repositorio  
 2. Abrir `index.html` en cualquier navegador  
 3. Navegar por las pantallas del sistema  
-4. Si está conectado al backend, los datos se cargarán dinámicamente  
 ---
 **Trabajo en Equipo**
 Este proyecto se desarrolló en grupo como parte del programa académico en la Universidad Libre.  
