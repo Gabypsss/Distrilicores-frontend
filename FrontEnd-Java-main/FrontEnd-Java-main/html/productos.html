@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vinos y Licores de Colombia | Productos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="stylesheet" href="/CSS/productos.css">
+    <link rel="shortcut icon" href="/images/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"/>
+    <script src="/JS/auth.js"></script>
+  </head>
+
+  <body class="page-productos">
+    <header>
+      <div class="menu container"> <a href="#" class="logo"><img src="/images/logo.svg" alt=""></a>
+        <input type="checkbox" id="menu">
+        <label for="menu"><img src="/images/menu.png" alt=""></label>
+
+        <nav class="navbar">
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="inventario.html">Inventario</a></li>
+            <li>
+              <div class="cart-icon">
+                <i class="ri-shopping-bag-line"></i>
+                <span class="cart-item-count"></span>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="cart">
+      <h2 class="cart-title">Mi canasta</h2>
+      <div class="cart-content"></div>
+      <div class="total">
+        <div class="total-title">Total</div>
+        <div class="total-price">$0</div>
+      </div>
+      <button class="btn-buy">Comprar ahora</button>
+      <i class="ri-close-circle-line" id="cart-close"></i>
+    </div>
+
+    <div class="cart-overlay"></div>
+
+    <section class="categorias">
+      <div class="container">
+        <h1 class="titulo-categorias1">Nuestros Productos</h1>
+        <h3 class="titulo-categorias2">Explora nuestras categorías.</h3>
+
+        <div class="swiper mySwiper-3">
+          <div class="swiper-wrapper">
+            <!-- Vinos -->
+            <div class="swiper-slide">
+              <div class="product">
+                <img src="/images/vino.png" alt="Vino">
+                <div class="product-txt">
+                  <h4>Vinos</h4>
+                  <p>Variedad de vinos premium</p>
+                  <span class="price">Desde $100.000 COP</span>
+                  <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="product">
+                <img src="/images/whisky.png" alt="Whisky">
+                <div class="product-txt">
+                  <h4>Whisky</h4>
+                  <p>Whiskies escoceses y más...</p>
+                  <span class="price">Desde $180.000 COP</span>
+                  <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="product">
+                <img src="/images/vodka.png" alt="Vodka">
+                <div class="product-txt">
+                  <h4>Vodka</h4>
+                  <p>Vodkas importados</p>
+                  <span class="price">Desde $120.000 COP</span>
+                  <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="product">
+                <img src="/images/aguardiente.png" alt="Aguardiente">
+                <div class="product-txt">
+                  <h4>Aguardiente</h4>
+                  <p>Tradición colombiana</p>
+                  <span class="price">Desde $30.000 COP</span>
+                  <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="product">
+                <img src="/images/tequila.png" alt="Tequila">
+                <div class="product-txt">
+                  <h4>Tequila</h4>
+                  <p>Auténtico de México</p>
+                  <span class="price">Desde $180.000 COP</span>
+                  <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="product">
+                <img src="/images/ron.png" alt="Ron">
+                <div class="product-txt">
+                  <h4>Ron</h4>
+                  <p>Sabores caribeños</p>
+                  <span class="price">Desde $150.000 COP</span>
+                  <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="product">
+                <img src="/images/cerveza.png" alt="Cerveza">
+                <div class="product-txt">
+                  <h4>Cerveza</h4>
+                  <p>Artesanales e importadas</p>
+                  <span class="price">Desde $20.000 COP</span>
+                  <i class="ri-shopping-bag-line add-cart"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2025 Todos los derechos reservados</p>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+      new Swiper(".mySwiper-3", {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        loop: true,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          0:   { slidesPerView: 1 },
+          520: { slidesPerView: 2 },
+          950: { slidesPerView: 3 },
+          1200:{ slidesPerView: 4 }
+        }
+      });
+    </script>
+    <script src="/JS/script.js"></script>
+    <script src="/JS/auth.js"></script>
+  </body>
+</html>

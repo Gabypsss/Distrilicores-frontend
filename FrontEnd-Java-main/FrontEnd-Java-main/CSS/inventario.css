@@ -1,0 +1,285 @@
+.categorias h1 {
+  padding-top: 150px;
+  color: #edb312;
+  text-align: center;
+  font-size: 50px;
+  padding-bottom: 50px;
+}
+
+.categorias .container {
+  text-align: center;
+}
+
+.categorias button {
+  margin: 6px 10px; /* un poco de espacio entre botones */
+}
+
+.btn-add {
+  padding: 15px;
+  border-radius: 15px;
+  background: #27ae60;
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  margin-right: 20px;
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn-delete {
+  padding: 15px;
+  border-radius: 15px;
+  background: #e74c3c;
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  margin-right: 20px;
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn-edit {
+  padding: 15px;
+  border-radius: 15px;
+  background: #edb40c;
+  border: none;
+  font-size: 16px;
+  color: #ffffffc4;
+  margin-right: 20px auto 0;
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Agregando estilos para la tabla de inventario */
+.inventory-section {
+  padding: 40px 0;
+  background: #141414;
+}
+
+.table-container {
+  background: #000000;
+  border-radius: 15px;
+  padding: 0px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.inventory-table th {
+  background: #000000;
+  color: #ffffff;
+  padding: 15px 10px;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 2px solid #000000;
+}
+
+.inventory-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid#1E1E1E;
+  color: #ffffffb7;
+}
+
+.inventory-table tr:hover {
+  background: #471d1dad;
+}
+
+.inventory-table tr:nth-child(even) {
+  background: #3B2323/* filas pares */
+}
+
+.inventory-table tr:nth-child(odd) {
+  background: #292929c2; /* filas impares */
+}
+
+
+
+/* Estilos para el modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+
+.close:hover {
+  color: #000;
+}
+
+.modal h2 {
+  color: #edb312;
+  margin-bottom: 25px;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #edb312;
+  box-shadow: 0 0 5px rgba(237, 179, 18, 0.3);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.btn-save {
+  padding: 12px 25px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  transition: background 0.3s;
+}
+
+.btn-save:hover {
+  background: #219a52;
+}
+
+.btn-cancel {
+  padding: 12px 25px;
+  background: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+  background: #7f8c8d;
+}
+
+/* Estilos responsivos para la tabla */
+@media (max-width: 768px) {
+  .inventory-table {
+    font-size: 14px;
+  }
+
+  .inventory-table th,
+  .inventory-table td {
+    padding: 8px 5px;
+  }
+
+  .modal-content {
+    margin: 10% auto;
+    width: 95%;
+    padding: 20px;
+  }
+
+  .categorias button {
+    margin: 5px;
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  border-top: 1px solid #edb3129a;
+  margin-top: 50px;
+}
+
+.footer p {
+  color: #a1a1a1;
+  font-size: 14px;
+}
+
+.product-txt {
+  position: static;
+}
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 999; /* debajo del .cart (1000) */
+}
+
+.cart-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.inventory-table input[type="radio"] {
+  width: 15px;        /* ancho */
+  height: 15px;       /* alto */
+  transform: scale(1.5);  /* aumenta el tamaño 1.5 veces */
+  cursor: pointer;    /* cambia el cursor al pasar */
+  text-align: center;   /* centra horizontalmente */
+}
+.inventory-table td:first-child,
+.inventory-table th:first-child {
+  text-align: center;   
+  vertical-align: middle; 
+}
+
+
+

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinos y Licores de Colombia | Pago</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"/>
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="shortcut icon" href="/images/logo.svg" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+        body {
+            background-color: #141414;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .payment-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 150px 20px 50px;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .payment-header h1 {
+            color: #edb312;
+            font-size: 45px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .payment-header p {
+            color: #a1a1a1;
+            font-size: 16px;
+        }
+
+        .payment-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .payment-section {
+            background: #151516fd;
+            border-radius: 25px;
+            padding: 30px;
+            border: 2px solid rgba(237, 179, 18, 0.2);
+        }
+
+        .section-title {
+            color: #edb312;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 28px;
+        }
+
+        /* Métodos de Pago */
+        .payment-methods {
+            display: grid;
+            gap: 15px;
+        }
+
+        .payment-method {
+            background: #1e1e1e;
+            border: 2px solid #3a3a3a;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .payment-method:hover {
+            border-color: #edb312;
+            background: #2a2520;
+        }
+
+        .payment-method.active {
+            border-color: #edb312;
+            background: linear-gradient(135deg, rgba(237, 179, 18, 0.1) 0%, rgba(237, 180, 12, 0.05) 100%);
+            box-shadow: 0 0 20px rgba(237, 179, 18, 0.2);
+        }
+
+        .payment-method input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #edb312;
+            cursor: pointer;
+        }
+
+        .payment-icon {
+            width: 60px;
+            height: 60px;
+            background: #2a2a2a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .payment-info h4 {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+        }
+
+        .payment-info p {
+            color: #a1a1a1;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        /* Logos de métodos de pago */
+        .nequi-logo {
+            background: linear-gradient(135deg, #FF006B 0%, #8B0045 100%);
+            color: white;
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .daviplata-logo {
+            background: linear-gradient(135deg, #ED1C24 0%, #B71C1C 100%);
+            color: white;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .card-logo {
+            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+            color: white;
+        }
+
+        .pse-logo {
+            background: linear-gradient(135deg, #00A859 0%, #007A3D 100%);
+            color: white;
+            font-weight: 800;
+            font-size: 22px;
+        }
+
+        .cash-logo {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+        }
+
+        /* Formulario de pago */
+        .payment-form {
+            display: none;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #3a3a3a;
+        }
+
+        .payment-form.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #edb312;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            background: #1e1e1e;
+            border: 2px solid #3a3a3a;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-family: "Poppins", sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #edb312;
+            box-shadow: 0 0 0 4px rgba(237, 179, 18, 0.1);
+        }
+
+        /* Resumen del pedido */
+        .order-summary {
+            position: sticky;
+            top: 120px;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #1e1e1e;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .summary-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .summary-item-info {
+            flex: 1;
+        }
+
+        .summary-item-info h4 {
+            color: #fff;
+            font-size: 15px;
+            margin: 0 0 5px 0;
+        }
+
+        .summary-item-info p {
+            color: #a1a1a1;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .summary-totals {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #3a3a3a;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: #a1a1a1;
+            font-size: 15px;
+        }
+
+        .total-row.final {
+            color: #edb312;
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #3a3a3a;
+        }
+
+        .btn-pay {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #edb312 0%, #edb40c 100%);
+            border: none;
+            border-radius: 15px;
+            color: #141414;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Poppins", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(237, 179, 18, 0.3);
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(237, 179, 18, 0.5);
+        }
+
+        .btn-pay:active {
+            transform: translateY(0);
+        }
+
+        .btn-pay:disabled {
+            background: #3a3a3a;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            color: #a1a1a1;
+            font-size: 13px;
+        }
+
+        .security-badge i {
+            color: #27ae60;
+            font-size: 18px;
+        }
+
+        /* Modal de confirmación */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-payment {
+            background: #151516fd;
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #edb312;
+            text-align: center;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 50px;
+            color: white;
+            animation: scaleIn 0.5s ease 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .modal-payment h2 {
+            color: #edb312;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .modal-payment p {
+            color: #a1a1a1;
+            font-size: 16px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .order-number {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px solid #3a3a3a;
+        }
+
+        .order-number span {
+            color: #edb312;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn-home {
+            padding: 15px 40px;
+            background: #edb312;
+            border: none;
+            border-radius: 12px;
+            color: #141414;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Poppins", sans-serif;
+            margin-top: 20px;
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(237, 179, 18, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .payment-content {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+                order: -1;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-header h1 {
+                font-size: 35px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .payment-container {
+                padding: 120px 15px 30px;
+            }
+
+            .payment-section {
+                padding: 20px;
+            }
+
+            .payment-header h1 {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .modal-payment {
+                padding: 30px 20px;
+            }
+
+            .modal-payment h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu container">
+            <a href="#" class="logo">
+                <img src="/images/logo.svg" alt="">
+            </a>
+            <input type="checkbox" id="menu">
+            <label for="menu">
+                <img src="/images/menu.png" alt="">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="inventario.html">Inventario</a></li>
+                    <li>
+                        <div class="cart-icon">
+                            <i class="ri-shopping-bag-line"></i>
+                            <span class="cart-item-count"></span>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1>Finalizar Compra</h1>
+            <p>Completa tu pedido de forma segura</p>
+        </div>
+
+        <div class="payment-content">
+            <!-- Sección de métodos de pago -->
+            <div class="payment-section">
+                <div class="section-title">
+                    <i class="ri-wallet-3-line"></i>
+                    Método de Pago
+                </div>
+
+                <div class="payment-methods">
+                    <!-- Nequi -->
+                    <label class="payment-method" for="nequi">
+                        <input type="radio" name="payment-method" id="nequi" value="nequi">
+                        <div class="payment-icon nequi-logo">N</div>
+                        <div class="payment-info">
+                            <h4>Nequi</h4>
+                            <p>Pago digital instantáneo</p>
+                        </div>
+                    </label>
+
+                    <!-- Daviplata -->
+                    <label class="payment-method" for="daviplata">
+                        <input type="radio" name="payment-method" id="daviplata" value="daviplata">
+                        <div class="payment-icon daviplata-logo">D</div>
+                        <div class="payment-info">
+                            <h4>Daviplata</h4>
+                            <p>Billetera digital Davivienda</p>
+                        </div>
+                    </label>
+
+                    <!-- Tarjeta -->
+                    <label class="payment-method" for="card">
+                        <input type="radio" name="payment-method" id="card" value="card">
+                        <div class="payment-icon card-logo">
+                            <i class="ri-bank-card-line"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>Tarjeta Débito/Crédito</h4>
+                            <p>Visa, Mastercard, American Express</p>
+                        </div>
+                    </label>
+
+                    <!-- PSE -->
+                    <label class="payment-method" for="pse">
+                        <input type="radio" name="payment-method" id="pse" value="pse">
+                        <div class="payment-icon pse-logo">PSE</div>
+                        <div class="payment-info">
+                            <h4>PSE</h4>
+                            <p>Pago seguro en línea</p>
+                        </div>
+                    </label>
+
+                    <!-- Efectivo -->
+                    <label class="payment-method" for="cash">
+                        <input type="radio" name="payment-method" id="cash" value="cash">
+                        <div class="payment-icon cash-logo">
+                            <i class="ri-money-dollar-circle-line"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h4>Efectivo</h4>
+                            <p>Pago contra entrega</p>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Formulario de Nequi -->
+                <div id="form-nequi" class="payment-form">
+                    <div class="form-group">
+                        <label>Número de celular Nequi</label>
+                        <input type="tel" placeholder="3001234567" pattern="[0-9]{10}" required>
+                    </div>
+                </div>
+
+                <!-- Formulario de Daviplata -->
+                <div id="form-daviplata" class="payment-form">
+                    <div class="form-group">
+                        <label>Número de celular Daviplata</label>
+                        <input type="tel" placeholder="3001234567" pattern="[0-9]{10}" required>
+                    </div>
+                </div>
+
+                <!-- Formulario de Tarjeta -->
+                <div id="form-card" class="payment-form">
+                    <div class="form-group">
+                        <label>Número de tarjeta</label>
+                        <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre en la tarjeta</label>
+                        <input type="text" placeholder="NOMBRE APELLIDO" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fecha de vencimiento</label>
+                            <input type="text" placeholder="MM/AA" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123" maxlength="4" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de PSE -->
+                <div id="form-pse" class="payment-form">
+                    <div class="form-group">
+                        <label>Selecciona tu banco</label>
+                        <select required>
+                            <option value="">Seleccionar banco</option>
+                            <option value="bancolombia">Bancolombia</option>
+                            <option value="davivienda">Davivienda</option>
+                            <option value="bbva">BBVA</option>
+                            <option value="banco-bogota">Banco de Bogotá</option>
+                            <option value="banco-occidente">Banco de Occidente</option>
+                            <option value="colpatria">Colpatria</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de persona</label>
+                        <select required>
+                            <option value="natural">Persona Natural</option>
+                            <option value="juridica">Persona Jurídica</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dirección de entrega -->
+                <div class="section-title" style="margin-top: 30px;">
+                    <i class="ri-map-pin-line"></i>
+                    Dirección de Entrega
+                </div>
+
+                <div class="form-group">
+                    <label>Dirección completa</label>
+                    <input type="text" id="address" placeholder="Calle 123 #45-67, Apto 801" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ciudad</label>
+                        <input type="text" id="city" placeholder="Bogotá" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono de contacto</label>
+                        <input type="tel" id="phone" placeholder="3001234567" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resumen del pedido -->
+            <div class="payment-section order-summary">
+                <div class="section-title">
+                    <i class="ri-shopping-cart-line"></i>
+                    Resumen del Pedido
+                </div>
+
+                <div id="order-items">
+                    <!-- Los items se cargarán dinámicamente -->
+                </div>
+
+                <div class="summary-totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Envío:</span>
+                        <span id="shipping">$10.000</span>
+                    </div>
+                    <div class="total-row final">
+                        <span>Total:</span>
+                        <span id="total">$0</span>
+                    </div>
+                </div>
+
+                <button class="btn-pay" id="btn-pay" disabled>
+                    <i class="ri-lock-line"></i> Selecciona un método de pago
+                </button>
+
+                <div class="security-badge">
+                    <i class="ri-shield-check-line"></i>
+                    <span>Pago 100% seguro y protegido</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal-overlay" id="modal-success">
+        <div class="modal-payment">
+            <div class="success-icon">
+                <i class="ri-check-line"></i>
+            </div>
+            <h2>¡Compra Exitosa!</h2>
+            <p>Tu pedido ha sido procesado correctamente</p>
+            <div class="order-number">
+                <p style="color: #a1a1a1; margin: 0 0 5px 0; font-size: 14px;">Número de orden:</p>
+                <span id="order-id"></span>
+            </div>
+            <p style="font-size: 14px;">Recibirás un correo con los detalles de tu compra.<br>
+            Tiempo estimado de entrega: 2-3 días hábiles</p>
+            <button class="btn-home" onclick="goHome()">
+                <i class="ri-home-line"></i> Volver al Inicio
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Todos los derechos reservados</p>
+    </footer>
+
+    <script src="/JS/auth.js"></script>
+    <script>
+        // Verificar que el usuario esté autenticado
+        if (!isAuthenticated()) {
+            alert('Debes iniciar sesión para realizar una compra');
+            window.location.href = 'login.html';
+        }
+
+        const STORAGE_KEY = "cartItems_v1";
+        const SHIPPING_COST = 10000;
+
+        // Cargar carrito
+        function loadCart() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : [];
+            } catch {
+                return [];
+            }
+        }
+
+        // Formatear precio
+        function formatCOP(n) {
+            return new Intl.NumberFormat("es-CO", {
+                style: "currency",
+                currency: "COP",
+                maximumFractionDigits: 0,
+            }).format(n || 0);
+        }
+
+        // Cargar items del pedido
+        function loadOrderItems() {
+            const items = loadCart();
+            const orderItemsDiv = document.getElementById('order-items');
+
+            if (items.length === 0) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            orderItemsDiv.innerHTML = items.map(item => `
+                <div class="summary-item">
+                    <img src="${item.img}" alt="${item.title}">
+                    <div class="summary-item-info">
+                        <h4>${item.title}</h4>
+                        <p>Cantidad: ${item.qty} × ${formatCOP(item.price)}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Calcular totales
+            const subtotal = items.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const total = subtotal + SHIPPING_COST;
+
+            document.getElementById('subtotal').textContent = formatCOP(subtotal);
+            document.getElementById('shipping').textContent = formatCOP(SHIPPING_COST);
+            document.getElementById('total').textContent = formatCOP(total);
+        }
+
+        // Manejar selección de método de pago
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const paymentForms = document.querySelectorAll('.payment-form');
+        const btnPay = document.getElementById('btn-pay');
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', function() {
+                const input = this.querySelector('input[type="radio"]');
+                input.checked = true;
+
+                // Remover active de todos
+                paymentMethods.forEach(m => m.classList.remove('active'));
+                paymentForms.forEach(f => f.classList.remove('active'));
+
+                // Activar el seleccionado
+                this.classList.add('active');
+
+                // Mostrar formulario correspondiente
+                const formId = 'form-' + input.value;
+                const form = document.getElementById(formId);
+                if (form) {
+                    form.classList.add('active');
+                }
+
+                // Habilitar botón de pago
+                btnPay.disabled = false;
+                btnPay.innerHTML = '<i class="ri-secure-payment-line"></i> Pagar ' + document.getElementById('total').textContent;
+            });
+        });
+
+        // Procesar pago
+        btnPay.addEventListener('click', function() {
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked');
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!selectedMethod) {
+                alert('Por favor selecciona un método de pago');
+                return;
+            }
+
+            if (!address || !city || !phone) {
+                alert('Por favor completa todos los campos de entrega');
+                return;
+            }
+
+            // Simular procesamiento
+            btnPay.disabled = true;
+            btnPay.innerHTML = '<i class="ri-loader-4-line"></i> Procesando...';
+            btnPay.style.animation = 'pulse 1s infinite';
+
+            setTimeout(() => {
+                // Generar número de orden
+                const orderId = 'VLC-' + Date.now().toString().slice(-8);
+                document.getElementById('order-id').textContent = orderId;
+
+                // Guardar orden
+                const order = {
+                    orderId,
+                    items: loadCart(),
+                    total: document.getElementById('total').textContent,
+                    paymentMethod: selectedMethod.value,
+                    address,
+                    city,
+                    phone,
+                    date: new Date().toISOString(),
+                    user: getSession()
+                };
+
+                // Guardar en historial
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+
+                // Limpiar carrito
+                localStorage.removeItem(STORAGE_KEY);
+
+                // Mostrar modal de éxito
+                document.getElementById('modal-success').classList.add('show');
+            }, 2000);
+        });
+
+        // Volver al inicio
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+
+        // Cargar items al iniciar
+        loadOrderItems();
+    </script>
+</body>
+</html>

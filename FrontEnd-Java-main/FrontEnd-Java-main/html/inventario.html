@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vinos y Licores de Colombia | Inventario</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="inventario.css" />
+    <link rel="stylesheet" href="tabla.css">
+    <link rel="shortcut icon" href="images/logo.svg" type="image/x-icon" />
+  </head>
+
+  <body class="page-inventario">
+    <header>
+      <div class="menu container">
+        <a href="#" class="logo">
+          <img src="/images/logo.svg" alt="" />
+        </a>
+
+        <input type="checkbox" id="menu" />
+        <label for="menu">
+          <img src="/images/menu.png" alt="" />
+        </label>
+
+        <nav class="navbar">
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="inventario.html">Inventario</a></li>
+            <li>
+              <div class="cart-icon">
+                <i class="ri-shopping-bag-line"></i>
+                <span class="cart-item-count"></span>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Carrito -->
+    <div class="cart">
+      <h2 class="cart-title">Mi canasta</h2>
+      <div class="cart-content"></div>
+
+      <div class="total">
+        <div class="total-title">Total</div>
+        <div class="total-price">$0</div>
+      </div>
+
+      <button class="btn-buy">Comprar ahora</button>
+      <i class="ri-close-circle-line" id="cart-close"></i>
+    </div>
+
+    <div class="cart-overlay"></div>
+
+    <!-- Sección de Inventario -->
+    <section class="categorias">
+      <div class="container">
+        <h1 class="titulo-categorias1">Gestión de Inventario</h1>
+        <button class="btn-add" onclick="openAddModal()">Agregar Producto</button>
+        <button class="btn-edit" onclick="editSelectedProduct()">Editar Producto</button>
+        <button class="btn-delete" onclick="deleteSelectedProduct()">Eliminar Producto</button>
+      </div>
+    </section>
+
+    <section class="inventory-section">
+      <div class="container">
+        <div class="table-container">
+          <table class="inventory-table">
+            <thead>
+              <tr>
+                <th>Seleccionar</th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
+                <th>Precio (COP)</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-tbody">
+              <!-- Productos cargados dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal de producto -->
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title">Agregar Producto</h2>
+
+        <form id="productForm">
+          <div class="form-group">
+            <label for="productName">Nombre del Producto:</label>
+            <input type="text" id="productName" required />
+          </div>
+
+          <div class="form-group">
+            <label for="productDescription">Descripción:</label>
+            <textarea id="productDescription" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="productImage">URL de la Imagen:</label>
+            <input type="text" id="productImage" placeholder="Ej: /images/vino_tinto.png" />
+          </div>
+
+          <div class="form-group">
+            <label for="productPrice">Precio (COP):</label>
+            <input type="number" id="productPrice" min="0" step="1000" required />
+          </div>
+
+          <div class="form-buttons">
+            <button type="submit" class="btn-save">Guardar</button>
+            <button type="button" class="btn-cancel" onclick="closeModal()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2025 Todos los derechos reservados</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+      new Swiper(".mySwiper-3", {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        loop: true,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          0: { slidesPerView: 1 },
+          520: { slidesPerView: 2 },
+          950: { slidesPerView: 3 },
+          1200: { slidesPerView: 4 },
+        },
+      });
+    </script>
+
+    <!-- Script principal del CRUD -->
+    <script>
+      const API_URL = "http://localhost:8080/productos";
+      let editingProductId = null;
+
+      // Cargar inventario
+      async function renderInventory() {
+        const tbody = document.getElementById("inventory-tbody");
+        tbody.innerHTML = "";
+
+        const response = await fetch(API_URL);
+        const productos = await response.json();
+
+        productos.forEach(p => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td><input type="radio" name="selectedProduct" value="${p.id}"></td>
+            <td>${p.id}</td>
+            <td>${p.nombre}</td>
+            <td>${p.descripcion}</td>
+            <td>${p.imagen ? `<img src="${p.imagen}" alt="${p.nombre}" style="width:60px;border-radius:8px;">` : "Sin imagen"}</td>
+            <td>$${p.precio.toLocaleString('es-CO')}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      // Abrir modal
+      function openAddModal() {
+        document.getElementById("modal-title").textContent = "Agregar Producto";
+        document.getElementById("productForm").reset();
+        editingProductId = null;
+        document.getElementById("productModal").style.display = "block";
+      }
+
+      // Cerrar modal
+      function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+        editingProductId = null;
+      }
+
+      // Editar producto
+      async function editSelectedProduct() {
+        const selected = document.querySelector('input[name="selectedProduct"]:checked');
+        if (!selected) {
+          alert("Selecciona un producto para editar");
+          return;
+        }
+
+        const id = selected.value;
+        const res = await fetch(`${API_URL}/${id}`);
+        const p = await res.json();
+
+        document.getElementById("modal-title").textContent = "Editar Producto";
+        document.getElementById("productName").value = p.nombre;
+        document.getElementById("productDescription").value = p.descripcion;
+        document.getElementById("productImage").value = p.imagen;
+        document.getElementById("productPrice").value = p.precio;
+        editingProductId = id;
+
+        document.getElementById("productModal").style.display = "block";
+      }
+
+      // Guardar producto
+      document.getElementById("productForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const producto = {
+          nombre: document.getElementById("productName").value,
+          descripcion: document.getElementById("productDescription").value,
+          imagen: document.getElementById("productImage").value,
+          precio: parseFloat(document.getElementById("productPrice").value)
+        };
+
+        let response;
+
+        if (editingProductId) {
+          response = await fetch(`${API_URL}/${editingProductId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(producto)
+          });
+        } else {
+          response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(producto)
+          });
+        }
+
+        if (response.ok) {
+          alert("Producto guardado correctamente");
+          renderInventory();
+          closeModal();
+        } else {
+          alert("Error al guardar producto");
+        }
+      });
+
+      // Eliminar producto
+      async function deleteSelectedProduct() {
+        const selected = document.querySelector('input[name="selectedProduct"]:checked');
+        if (!selected) {
+          alert("Selecciona un producto para eliminar");
+          return;
+        }
+
+        const id = selected.value;
+        if (confirm("¿Seguro que deseas eliminar este producto?")) {
+          const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+
+          if (res.ok) {
+            alert("Producto eliminado correctamente");
+            renderInventory();
+          } else {
+            alert("Error al eliminar producto");
+          }
+        }
+      }
+
+      // Cerrar modal al hacer clic fuera
+      window.onclick = function (event) {
+        const modal = document.getElementById("productModal");
+        if (event.target === modal) {
+          closeModal();
+        }
+      };
+
+      // Cargar inventario al inicio
+      renderInventory();
+    </script>
+
+    <script src="/JS/script.js"></script>
+    <script src="/JS/auth.js"></script>
+  </body>
+  
+  <script>
+  // Proteger página - solo admins
+  if (typeof protectAdminPage === 'function') {
+    protectAdminPage();
+  }
+</script>
+</html>

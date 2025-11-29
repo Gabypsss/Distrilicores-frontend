@@ -1,0 +1,139 @@
+/* productos.css — estilos SOLO para la página de productos */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+.categorias h1{
+  padding-top: 120px;
+}
+
+.page-productos{
+  --brand: #edb312;
+  --brand-ink: #edb40c;
+  --card-bg: #151516fd;
+  --text: #0f0e0e;
+  --text-muted: #a1a1a1;
+
+  --card-h: 400px;      
+  --img-h: 260px;       
+  --cart-size: 44px;    
+  --cart-gap: 10px;     
+  font-family: "Poppins", sans-serif;
+  color: var(--text);
+}
+
+.page-productos .categorias { padding-block-end: 0; padding-bottom: 0; }
+
+.page-productos .footer { margin-top: 12px; }  
+
+.page-productos .titulo-categorias1{
+  color: var(--brand); font-size: 40px; text-align:center;
+  margin-bottom: 8px; font-weight: 700; text-transform: uppercase;
+}
+.page-productos .titulo-categorias2{
+  color: #9e802e; font-size: 18px; text-align:center;
+  margin-bottom: 36px; font-weight: 700; text-transform: uppercase;
+}
+
+.page-productos .mySwiper-3 .swiper-slide{
+  background-color: var(--card-bg);
+  border-radius: 30px;
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+  overflow: visible;
+  padding: 0 8px;
+  font-size: 1rem;
+}
+
+.page-productos .swiper-button-next,
+.page-productos .swiper-button-prev{
+  color: var(--brand);
+}
+
+.page-productos .product{
+  position: relative;
+  width: 100%;
+  height: var(--card-h);
+  padding: 16px 16px calc(var(--cart-size) + var(--cart-gap)) 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-productos .product img{
+  height: var(--img-h);
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+
+.page-productos .product-txt{
+  position: static;
+  width: 100%;
+  height: 100%;
+  display: flex; flex-direction: column; gap: 4px;
+  text-align: center; align-items: center;
+  padding-inline: calc(var(--cart-size) + 12px);
+  
+}
+
+.page-productos .product-txt h4{
+  margin: 0; line-height: 1.15; font-size: 20px; color: var(--brand-ink);
+}
+
+.page-productos .product-txt p{
+  margin: 0; line-height: 1.2; font-size: 16px; color: var(--text-muted);
+}
+
+.page-productos .product-txt .price{
+  display: block; margin-top: 2px; line-height: 1;
+  color: var(--brand-ink); font-weight: 600;
+}
+
+/* ===== Botón carrito (esquina inferior derecha) ===== */
+.page-productos .add-cart{
+  position: absolute;
+  width: var(--cart-size); height: var(--cart-size);
+  display: inline-flex; align-items: center; justify-content: center;
+  top: 340px;
+  right: 5px;
+
+  font-size: 30px; color: var(--brand);
+  background: #111010;
+  border-radius: 999px;
+  box-shadow: 0 0 0 2px var(--brand), 0 6px 18px rgba(0,0,0,.35);
+  line-height: 1; cursor: pointer; z-index: 2;
+}
+
+.page-productos .add-cart:hover{ transform: translateY(-1px); }
+.page-productos .add-cart:active{ transform: translateY(0); }
+.page-productos .add-cart:focus-visible{ outline: 2px solid var(--brand); outline-offset: 3px; }
+
+/* ===== Responsivo ===== */
+@media (max-width: 520px){
+  .page-productos{
+    --card-h: 500px;
+    --img-h: 240px;
+  }
+}
+@media (min-width: 1200px){
+  .page-productos{
+    --card-h: 400px;
+    --img-h: 200px;
+  }
+}
+
+.footer { text-align: center; padding: 30px 0; border-top: 1px solid #edb3129a; margin-top: 50px; }
+.footer p { color: #a1a1a1; font-size: 14px; }
+.product-txt{ position: static; }
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 999; /* debajo del .cart (1000) */
+}
+.cart-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
