@@ -1,0 +1,48 @@
+**Sistema de Inventario – Frontend  **
+Proyecto académico – Universidad Libre
+
+Este repositorio contiene la parte frontend del sistema de inventario desarrollado en equipo.  
+Aquí se encuentran las interfaces de usuario creadas para la gestión de productos, roles y movimientos del inventario.
+
+---
+**Descripción General**
+El frontend permite que el usuario interactúe con el sistema mediante pantallas diseñadas en HTML y CSS, incluyendo:
+
+- Login de usuario y administrador  
+- Gestión de productos  
+- Formularios para registrar, editar y eliminar información  
+- Tablas para visualizar el inventario  
+- Navegación entre módulos  
+- Diseño visual  y funcional  
+
+---
+**Mi Contribución Personal**
+En el trabajo en equipo participé en:
+
+- Maquetación de pantallas con **HTML5** y **CSS3**  
+- Diseño visual de tablas, botones y formularios  
+- Estructura de navegación entre páginas  
+- Organización de carpetas y estructura del proyecto  
+- Preparación del frontend para futura integración con el backend  
+---
+**Tecnologías Utilizadas**
+- HTML5  
+- CSS3  
+- Diseño responsivo básico  
+- JavaScript 
+---
+**Cómo Ejecutarlo**
+1. Descargar o clonar este repositorio  
+2. Abrir `index.html` en cualquier navegador  
+3. Navegar por las pantallas del sistema  
+4. Si está conectado al backend, los datos se cargarán dinámicamente  
+---
+**Trabajo en Equipo**
+Este proyecto se desarrolló en grupo como parte del programa académico en la Universidad Libre.  
+Este repositorio representa **mi contribución al módulo frontend**.
+---
+
+## 🔗 Enlaces Relacionados
+Backend CRUD: 
+
+
