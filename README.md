@@ -1,4 +1,4 @@
-**Sistema de Inventario – Frontend **
+**Sistema de Inventario–Frontend**
 Proyecto académico – Universidad Libre
 
 Este repositorio contiene la parte frontend del sistema de inventario desarrollado en equipo.  
